@@ -11,7 +11,12 @@ export default class UserController {
 
   async createUser(req: Request, res: Response, next: NextFunction) {
     try {
-      await this.userService.createUser(req.body as User);
+      const payload = {
+        ...(req.body as User),
+        profilePicture: req?.file?.path || "",
+      };
+
+      await this.userService.createUser(payload as User);
 
       res.status(200).send({ message: "Create user success" });
     } catch (error) {
@@ -19,7 +24,7 @@ export default class UserController {
     }
   }
 
-  async getUsers(_req: Request, res: Response, next: NextFunction) {
+  async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await this.userService.getUsers();
 
