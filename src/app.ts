@@ -1,13 +1,13 @@
 import express, {
   Application,
   json,
-  NextFunction,
   Request,
   Response,
   urlencoded,
 } from "express";
 import cors from "cors";
 import UserRoute from "./routes/user.route";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const PORT = 8000;
 
@@ -30,13 +30,7 @@ export default class App {
   }
 
   private initializeErrorHandling(): void {
-    this.app.use(
-      (err: Error, req: Request, res: Response, next: NextFunction) => {
-        console.error("Error : ", err.stack);
-
-        res.status(500).send(err.message);
-      }
-    );
+    this.app.use(errorMiddleware);
   }
 
   private initalizeRoutes(): void {

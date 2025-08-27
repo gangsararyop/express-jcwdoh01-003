@@ -26,6 +26,8 @@ export default class UserController {
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
+      throw new Error("Ini error");
+
       const users = await this.userService.getUsers();
 
       res.status(200).send({ data: users, message: "Get users success" });
