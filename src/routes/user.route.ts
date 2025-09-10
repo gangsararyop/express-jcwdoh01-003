@@ -25,21 +25,6 @@ export default class UserRoute {
     // /users
     this.router.get(
       "/",
-      // multipleFilesDiffField(
-      //   [
-      //     {
-      //       name: "image1",
-      //       maxCount: 2,
-      //     },
-      //     {
-      //       name: "image2",
-      //     },
-      //   ],
-      //   "DIFF",
-      //   "/different-field"
-      // ),
-
-      // memoryUploader().single("file"),
       this.userController.getUsers.bind(this.userController)
     );
 

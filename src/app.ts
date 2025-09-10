@@ -6,19 +6,22 @@ import express, {
   urlencoded,
 } from "express";
 import cors from "cors";
-import UserRoute from "./routes/user.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
+import scheduleTask from "./scheduler/sample";
+import UserRoute from "./routes/user.route";
+import PokemonRoute from "./routes/pokemon.route";
 
-const PORT = 8000;
+const PORT = 8003;
 
 export default class App {
-  private app: Application;
+  public app: Application;
 
   constructor() {
     this.app = express();
 
     this.configure();
     this.initalizeRoutes();
+    this.initializeScheduler();
     this.initializeErrorHandling();
   }
 
@@ -39,6 +42,11 @@ export default class App {
     });
 
     this.app.use("/users", new UserRoute().router);
+    this.app.use("/pokemons", new PokemonRoute().router);
+  }
+
+  private initializeScheduler(): void {
+    scheduleTask();
   }
 
   public start(): void {
