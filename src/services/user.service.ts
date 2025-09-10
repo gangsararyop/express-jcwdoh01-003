@@ -2,7 +2,6 @@ import { User } from "@prisma/client";
 import prisma from "../prisma";
 import { cloudinaryUpload } from "../utils/cloudinary";
 import emailer from "../utils/emailer";
-import { redisClient } from "../utils/redis";
 
 export default class UserService {
   async createUser(user: User) {
